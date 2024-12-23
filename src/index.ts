@@ -21,49 +21,49 @@ function calcularIMC(): void {
 
   const imc = peso / (altura * altura);
 
-  valoresEntrada.innerHTML = `Com a altura de ${altura.toFixed(
+  valoresEntrada.innerHTML = `Com a<br>altura de ${altura.toFixed(
     2
   )}m e<br>o peso de ${peso}Kg `;
 
   if (imc < 16) {
-    resultadoTexto.textContent = `o seu IMC é ${imc.toFixed(
+    resultadoTexto.innerHTML = `o seu IMC é <br>${imc.toFixed(
       2
-    )} e você está com magreza grave.`;
+    )}<br>e você está com<br>Magreza Grave.`;
   } else if (imc >= 16 && imc <= 16.99) {
-    resultadoTexto.textContent = `o seu IMC é ${imc.toFixed(
+    resultadoTexto.innerHTML = `o seu IMC é <br>${imc.toFixed(
       2
-    )} e você está com magreza moderada.`;
+    )}<br>e você está com<br>Magreza Moderada.`;
   } else if (imc >= 17 && imc <= 18.59) {
-    resultadoTexto.textContent = `o seu IMC é ${imc.toFixed(
+    resultadoTexto.innerHTML = `o seu IMC é <br>${imc.toFixed(
       2
-    )} e você está com magreza leve.`;
+    )}<br>e você está com<br>Magreza Leve.`;
   } else if (imc >= 18.6 && imc <= 24.99) {
-    resultadoTexto.textContent = `o seu IMC é ${imc.toFixed(
+    resultadoTexto.innerHTML = `o seu IMC é <br>${imc.toFixed(
       2
-    )} e você está com peso ideal.`;
+    )}<br>e você está com<br>Peso Ideal.`;
   } else if (imc >= 25 && imc <= 29.99) {
-    resultadoTexto.textContent = `o seu IMC é ${imc.toFixed(
+    resultadoTexto.innerHTML = `o seu IMC é <br>${imc.toFixed(
       2
-    )} e você está com sobrepeso.`;
+    )}<br>e você está com<br>Sobrepeso.`;
   } else if (imc >= 30 && imc <= 34.99) {
-    resultadoTexto.textContent = `o seu IMC é ${imc.toFixed(
+    resultadoTexto.innerHTML = `o seu IMC é <br>${imc.toFixed(
       2
-    )} e você está com obesidade grau I.`;
+    )}<br>e você está com<br>Obesidade Grau I.`;
   } else if (imc >= 35 && imc <= 39.99) {
-    resultadoTexto.textContent = `o seu IMC é ${imc.toFixed(
+    resultadoTexto.innerHTML = `o seu IMC é <br>${imc.toFixed(
       2
-    )} e você está com obesidade grau II ou severa.`;
+    )}<br>e você está com<br>Obesidade Grau II ou Severa.`;
   } else if (imc >= 40) {
-    resultadoTexto.textContent = `o seu IMC é ${imc.toFixed(
+    resultadoTexto.innerHTML = `o seu IMC é <br>${imc.toFixed(
       2
-    )} e você está com Obesidade de grau III ou mórbida.`;
+    )}<br>e você está com<br>Obesidade de Grau III ou Mórbida.`;
   } else {
     resultadoTexto.textContent =
       "Verifique os valores inseridos e calcule novamente"; // Caso inesperado
   }
 
   aviso.textContent =
-    "Mas independente do resultados obtidos o melhor sempre é consultar e ter um acompanhamento médico.";
+    "Independente do resultados obtidos o melhor sempre é consultar e ter um acompanhamento médico.";
 
   entradaAltura.value = "";
   entradaPeso.value = "";
