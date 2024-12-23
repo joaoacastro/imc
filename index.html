@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- style -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Comfortaa:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>:.IMC:.</title>
+  </head>
+  <body>
+    <main>
+      <div class="entrada">
+        <h1>IMC</h1>
+        <h4>(Índice de Massa Corporal)</h4>
+        <hr />
+        <div class="containerEntrada">
+          <div class="altura">
+            <label for="altura">Altura:</label>
+            <input
+              type="number"
+              id="altura"
+              class="inputAltura"
+              placeholder="1.80m"
+            />
+          </div>
+          <br />
+          <div class="peso">
+            <label for="peso">Peso:</label>
+            <input
+              type="number"
+              id="peso"
+              class="inputPeso"
+              placeholder="90kg"
+            />
+          </div>
+          <hr />
+
+          <button id="Calcular">Calcular</button>
+        </div>
+      </div>
+      <div class="saida" id="saida">
+        <div id="valoresEntrada"></div>
+        <div id="resultadoTexto"></div>
+        <div id="aviso"></div>
+      </div>
+    </main>
+    <script src="dist/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# TypeScript
+*.tsbuildinfo
+
+# Diretórios e arquivos que você pode querer ignorar
+/dist   # Não ignorar o diretório dist
+/src    # Ignorar o diretório de código fonte se necessário
+*.ts    # Ignorar arquivos TypeScript, mas mantenha o diretório src
+
+# Configurações de IDEs
+.vscode/
+.idea/
+
+# Dependências locais
+*.env
+
+# Arquivos temporários de sistema
+.DS_Store
+Thumbs.db
