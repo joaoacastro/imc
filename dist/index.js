@@ -5,6 +5,8 @@ const valoresEntrada = document.querySelector("#valoresEntrada");
 const resultadoTexto = document.querySelector("#resultadoTexto");
 const aviso = document.querySelector("#aviso");
 const saida = document.querySelector("#saida");
+const entrada = document.querySelector("#entrada");
+const botaoCalcularNovamente = document.querySelector("#botaoCalcularNovamente");
 function calcularIMC() {
     let altura = parseFloat(entradaAltura.value);
     const peso = parseFloat(entradaPeso.value);
@@ -49,7 +51,13 @@ function calcularIMC() {
         "Mas independente do resultados obtidos o melhor sempre é consultar e ter um acompanhamento médico.";
     entradaAltura.value = "";
     entradaPeso.value = "";
+    entrada.style.display = "none";
     saida.style.display = "block";
+    botaoCalcular.style.display = "none";
+    botaoCalcularNovamente.style.display = "block";
 }
-const botaoCalcular = document.querySelector("#Calcular");
+botaoCalcularNovamente.addEventListener('click', function () {
+    location.reload(); // Recarrega a página
+});
+const botaoCalcular = document.querySelector("#botaoCalcular");
 botaoCalcular.addEventListener("click", calcularIMC);

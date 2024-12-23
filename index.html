@@ -20,7 +20,7 @@
   </head>
   <body>
     <main>
-      <div class="entrada">
+      <div class="entrada" id="entrada">
         <h1>IMC</h1>
         <h4>(Índice de Massa Corporal)</h4>
         <hr />
@@ -44,16 +44,16 @@
               placeholder="90kg"
             />
           </div>
-          <hr />
 
-          <button id="Calcular">Calcular</button>
         </div>
       </div>
+      <button id="botaoCalcular">Calcular</button>
       <div class="saida" id="saida">
         <div id="valoresEntrada"></div>
         <div id="resultadoTexto"></div>
         <div id="aviso"></div>
       </div>
+      <button id="botaoCalcularNovamente" style="display: none;">Calcular Novamente</button>
     </main>
     <script src="dist/index.js"></script>
   </body>

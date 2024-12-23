@@ -4,6 +4,8 @@ const valoresEntrada = document.querySelector("#valoresEntrada") as HTMLElement;
 const resultadoTexto = document.querySelector("#resultadoTexto") as HTMLElement;
 const aviso = document.querySelector("#aviso") as HTMLElement;
 const saida = document.querySelector("#saida") as HTMLElement; 
+const entrada = document.querySelector("#entrada") as HTMLElement;
+const botaoCalcularNovamente = document.querySelector("#botaoCalcularNovamente") as HTMLButtonElement;
 
 function calcularIMC(): void {
   let altura = parseFloat(entradaAltura.value);
@@ -66,8 +68,16 @@ function calcularIMC(): void {
   entradaAltura.value = "";
   entradaPeso.value = "";
 
+  entrada.style.display = "none";
   saida.style.display = "block";
+
+  botaoCalcular.style.display = "none";
+  botaoCalcularNovamente.style.display = "block";
 }
 
-const botaoCalcular = document.querySelector("#Calcular") as HTMLButtonElement;
+botaoCalcularNovamente.addEventListener('click', function() {
+  location.reload();  // Recarrega a página
+});
+
+const botaoCalcular = document.querySelector("#botaoCalcular") as HTMLButtonElement;
 botaoCalcular.addEventListener("click", calcularIMC);
