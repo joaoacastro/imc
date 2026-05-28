@@ -93,6 +93,9 @@
             <p>
               Calcule quantas calorias seu corpo queima em repouso durante 24h.
             </p>
+            <p class="entrada-subtitulo">
+              O resultado mostra a TMB e o TDEE baseado no seu nível de atividade.
+            </p>
           </header>
 
           <form id="metabolismoForm" novalidate>
@@ -139,6 +142,16 @@
                 <option value="masculino">Masculino</option>
                 <option value="feminino">Feminino</option>
               </select>
+
+              <label for="atividade-metabolismo">Nível de atividade</label>
+              <select id="atividade-metabolismo" required>
+                <option value="">Selecione...</option>
+                <option value="sedentario">Sedentário (pouco ou nenhum exercício)</option>
+                <option value="levemente-ativo">Levemente ativo (1 a 3 dias/semana)</option>
+                <option value="moderadamente-ativo">Moderadamente ativo (3 a 5 dias/semana)</option>
+                <option value="muito-ativo">Muito ativo (6 a 7 dias/semana)</option>
+                <option value="extremamente-ativo">Extremamente ativo (exercício intenso/trabalho físico)</option>
+              </select>
             </div>
 
             <div class="acoes">
@@ -155,6 +168,7 @@
             id="resultadoMetabolismo"
             class="resultado__texto resultado__categoria"
           ></div>
+          <div id="resultadoTotalMetabolismo" class="resultado__texto"></div>
           <div id="avisoMetabolismo" class="resultado__aviso"></div>
         </section>
       </div>
