@@ -1,112 +1,230 @@
-body {
-  color: #fff;
-  background-color: #3a3a3a;
-  font-family: "Comfortaa", sans-serif;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-a{
-  text-decoration: none;
-  color: #ffffff;
-}
-
-main{
+﻿body {
+  min-height: 100vh;
+  margin: 0;
+  color: #f5f7ff;
+  background: radial-gradient(
+    circle at top,
+    #4c7bff 0%,
+    #202a42 55%,
+    #121722 100%
+  );
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+main.card {
+  width: min(420px, 100%);
 }
 
 .entrada,
 .saida {
-  margin: 10px;
-  padding: 2rem;
-  background-color: #525252;
-  border-radius: 20px;
-  width: 400px;
-  max-width: 800px;
-  font-size: 20px;
-  box-shadow: 4px 4px 2px rgba(0,0,0,0.25); /* 0 no eixo x, 4px no eixo y e 7px de espalhamento rgba 000 pra sombra preta e 0.25 de transparencia */
+  margin-bottom: 18px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
 }
 
-.saida {
-  display: none; /* Torna os filhos flexíveis */
-  flex-direction: column; /* Organiza os filhos verticalmente */
-  justify-content: space-around;
-  align-items: center; /* Centraliza os filhos horizontalmente */
-  gap: 20px; /* Espaçamento uniforme entre os filhos */
+.entrada-header {
   text-align: center;
+  margin-bottom: 24px;
 }
 
-.entrada h1,
-.entrada h4 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.entrada hr {
-  margin: 20px;
-}
-
-.entrada h1{
+.entrada-header h1 {
   font-size: 2rem;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
 }
 
-.entrada h4{
+.entrada-header p {
+  margin: 0;
+  color: #d0d7ee;
+  line-height: 1.6;
+  font-size: 0.98rem;
+}
+
+.containerEntrada {
+  display: grid;
+  gap: 18px;
+}
+
+.containerEntrada label {
+  font-size: 0.95rem;
+  color: #e8ebff;
+}
+
+.containerEntrada input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f7ff;
   font-size: 1rem;
-  color: #b4b4b4;
 }
 
+.containerEntrada input:focus {
+  outline: none;
+  border-color: #8ac7ff;
+  box-shadow: 0 0 0 4px rgba(138, 199, 255, 0.18);
+}
 
-button{
-  padding: 10px;
-  border-radius: 10px;
+.acoes {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+button {
+  flex: 1 1 160px;
+  min-width: 0;
+  border: none;
+  border-radius: 16px;
+  padding: 14px 18px;
   font-size: 1rem;
+  font-weight: 700;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease;
 }
 
-button:hover{
+button:hover {
+  transform: translateY(-1px);
   cursor: pointer;
 }
 
-.inputAltura,
-.inputPeso {
-  font-size: 16px;
-  padding: 0px;
+#botaoCalcular {
+  background: linear-gradient(135deg, #5dd7ff 0%, #3681ff 100%);
+  color: #08243b;
+}
+
+button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #eef2ff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+button.secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.resultado__texto {
   width: 100%;
-  height: 30px;
-  display: flex;
+  padding: 18px 0;
   text-align: center;
 }
 
-#aviso{
-  font-size: 12px;
+.resultado__categoria {
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-top: 6px;
+  color: #ffd87d;
 }
 
-#valoresEntrada,
-#resultadoTexto,
-#aviso {
-  width: 100%; /* Mantém a largura de cada div consistente */
-  padding: 30px; /* Adiciona espaço interno */
+.categoria-magreza-grave {
+  color: #ff6b6b;
 }
 
-@media (max-width: 768px) {
-  main {
-    flex-direction: column; /* Empilha as divs verticalmente */
-    align-items: center; /* Centraliza os itens */
-  }
+.categoria-magreza-moderada {
+  color: #ff8f6b;
+}
 
-  .entrada h1{
-    font-size: 1.5rem;
-  }
-  
-  .entrada h4{
-    font-size: 0.5rem;
-  }
-  
+.categoria-magreza-leve {
+  color: #ffb86b;
+}
+
+.categoria-peso-ideal {
+  color: #7beab0;
+}
+
+.categoria-sobrepeso {
+  color: #ffd166;
+}
+
+.categoria-obesidade-i {
+  color: #ff9c7a;
+}
+
+.categoria-obesidade-ii {
+  color: #ff7b9b;
+}
+
+.categoria-obesidade-iii {
+  color: #ff5a7e;
+}
+
+.categoria-nao-classificado {
+  color: #d0d6ea;
+}
+
+.resultado__aviso {
+  font-size: 0.92rem;
+  color: #d0d6ea;
+  line-height: 1.6;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rodape {
+  text-align: center;
+  color: #c3cadf;
+  font-size: 0.86rem;
+  width: 100%;
+}
+
+.rodape__creditos {
+  margin-top: 8px;
+}
+
+.rodape__creditos a {
+  color: #d7e5ff;
+  text-decoration: underline;
+}
+
+.rodape__creditos a:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 500px) {
   .entrada,
   .saida {
-    width: 80vw; /* Adapta a largura para ocupar quase toda a tela */
+    padding: 20px;
+  }
+
+  .entrada-header h1 {
+    font-size: 1.7rem;
+  }
+
+  /* .acoes {
+    flex-direction: column;
+  } */
+
+  .acoes button,
+  .acoes button#botaoCalcular {
+    padding: 10px 16px !important;
+    font-size: 0.95rem;
+    min-width: 0;
   }
 }
