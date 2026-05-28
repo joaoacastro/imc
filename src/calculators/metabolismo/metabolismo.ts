@@ -1,13 +1,18 @@
-import type { Genero, ResultadoMetabolismo } from "./metabolismo.types";
+import type {
+  Genero,
+  NivelAtividade,
+  ResultadoMetabolismo,
+} from "./metabolismo.types";
 
 export function validarMetabolismo(
   peso: number,
   altura: number,
   idade: number,
   genero: Genero,
+  atividade: NivelAtividade,
 ): string | null {
   if (Number.isNaN(peso) || Number.isNaN(altura) || Number.isNaN(idade)) {
-    return "Preencha todos os campos com valores numéricos válidos.";
+    return "Preencha todos os campos com valores válidos.";
   }
 
   if (altura < 0.5 || altura > 2.5) {
@@ -24,6 +29,18 @@ export function validarMetabolismo(
 
   if (!["masculino", "feminino"].includes(genero)) {
     return "Selecione um gênero válido.";
+  }
+
+  if (
+    ![
+      "sedentario",
+      "levemente-ativo",
+      "moderadamente-ativo",
+      "muito-ativo",
+      "extremamente-ativo",
+    ].includes(atividade)
+  ) {
+    return "Selecione um nível de atividade válido.";
   }
 
   return null;
@@ -44,6 +61,26 @@ export function calcularMetabolismoBasal(
   }
 }
 
+export function obterMultiplicadorAtividade(atividade: NivelAtividade): {
+  multiplicador: number;
+  descricao: string;
+} {
+  switch (atividade) {
+    case "sedentario":
+      return { multiplicador: 1.2, descricao: "Sedentário" };
+    case "levemente-ativo":
+      return { multiplicador: 1.375, descricao: "Levemente ativo" };
+    case "moderadamente-ativo":
+      return { multiplicador: 1.55, descricao: "Moderadamente ativo" };
+    case "muito-ativo":
+      return { multiplicador: 1.725, descricao: "Muito ativo" };
+    case "extremamente-ativo":
+      return { multiplicador: 1.9, descricao: "Extremamente ativo" };
+    default:
+      return { multiplicador: 1.2, descricao: "Sedentário" };
+  }
+}
+
 export function classificarMetabolismo(tmb: number): string {
   if (tmb < 1200) {
     return "Metabolismo lento";
@@ -61,11 +98,18 @@ export function calcularResultadoMetabolismo(
   altura: number,
   idade: number,
   genero: Genero,
+  atividade: NivelAtividade,
 ): ResultadoMetabolismo {
   const tmb = calcularMetabolismoBasal(peso, altura, idade, genero);
+  const atividadeInfo = obterMultiplicadorAtividade(atividade);
+  const tdee = tmb * atividadeInfo.multiplicador;
+
   return {
     tmb: Math.round(tmb),
     genero,
     classificacao: classificarMetabolismo(tmb),
+    atividade: atividadeInfo.descricao,
+    multiplicador: atividadeInfo.multiplicador,
+    tdee: Math.round(tdee),
   };
 }

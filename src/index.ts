@@ -1,6 +1,9 @@
 import * as IMC from "./calculators/imc/imc";
 import * as Metabolismo from "./calculators/metabolismo/metabolismo";
-import type { Genero } from "./calculators/metabolismo/metabolismo.types";
+import type {
+  Genero,
+  NivelAtividade,
+} from "./calculators/metabolismo/metabolismo.types";
 
 // ============ DOM Elements IMC ============
 const form = document.querySelector<HTMLFormElement>("#imcForm")!;
@@ -24,11 +27,17 @@ const idadeMetabolismo =
 const generoMetabolismo = document.querySelector<HTMLSelectElement>(
   "#genero-metabolismo",
 )!;
+const atividadeMetabolismo = document.querySelector<HTMLSelectElement>(
+  "#atividade-metabolismo",
+)!;
 const valoresMetabolismo = document.querySelector<HTMLElement>(
   "#valoresMetabolismo",
 )!;
 const resultadoMetabolismo = document.querySelector<HTMLElement>(
   "#resultadoMetabolismo",
+)!;
+const resultadoTotalMetabolismo = document.querySelector<HTMLElement>(
+  "#resultadoTotalMetabolismo",
 )!;
 const avisoMetabolismo =
   document.querySelector<HTMLElement>("#avisoMetabolismo")!;
@@ -85,12 +94,14 @@ function obterValoresMetabolismo(): {
   altura: number;
   idade: number;
   genero: Genero;
+  atividade: NivelAtividade;
 } {
   return {
     peso: parseFloat(pesoMetabolismo.value.replace(",", ".")),
     altura: parseFloat(alturaMetabolismo.value.replace(",", ".")),
     idade: parseFloat(idadeMetabolismo.value),
     genero: generoMetabolismo.value as Genero,
+    atividade: atividadeMetabolismo.value as NivelAtividade,
   };
 }
 
@@ -102,9 +113,10 @@ function mostrarResultadoMetabolismo(
   resultado: ReturnType<typeof Metabolismo.calcularResultadoMetabolismo>,
 ): void {
   valoresMetabolismo.textContent = `${peso} kg · ${altura.toFixed(2)} m · ${idade} anos · ${genero === "masculino" ? "♂" : "♀"}`;
-  resultadoMetabolismo.textContent = `${resultado.tmb} kcal/dia — ${resultado.classificacao}`;
+  resultadoMetabolismo.textContent = `TMB ${resultado.tmb} kcal/dia — ${resultado.classificacao}`;
+  resultadoTotalMetabolismo.textContent = `TDEE ${resultado.tdee} kcal/dia (${resultado.atividade}, x${resultado.multiplicador})`;
   avisoMetabolismo.textContent =
-    "A Taxa Metabólica Basal (TMB) é a quantidade de calorias que seu corpo queima em repouso.";
+    "A Taxa Metabólica Basal (TMB) é o gasto de calorias em repouso e o TDEE considera seu nível de atividade.";
   saidaMetabolismo.classList.remove("hidden");
 }
 
@@ -118,8 +130,14 @@ function exibirErroMetabolismo(mensagem: string): void {
 metabolismoForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const { peso, altura, idade, genero } = obterValoresMetabolismo();
-  const erro = Metabolismo.validarMetabolismo(peso, altura, idade, genero);
+  const { peso, altura, idade, genero, atividade } = obterValoresMetabolismo();
+  const erro = Metabolismo.validarMetabolismo(
+    peso,
+    altura,
+    idade,
+    genero,
+    atividade,
+  );
 
   if (erro) {
     exibirErroMetabolismo(erro);
@@ -131,6 +149,7 @@ metabolismoForm.addEventListener("submit", (event) => {
     altura,
     idade,
     genero,
+    atividade,
   );
   mostrarResultadoMetabolismo(peso, altura, idade, genero, resultado);
 });

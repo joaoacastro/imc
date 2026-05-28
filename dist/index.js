@@ -62,9 +62,9 @@
   }
 
   // src/calculators/metabolismo/metabolismo.ts
-  function validarMetabolismo(peso, altura, idade, genero) {
+  function validarMetabolismo(peso, altura, idade, genero, atividade) {
     if (Number.isNaN(peso) || Number.isNaN(altura) || Number.isNaN(idade)) {
-      return "Preencha todos os campos com valores num\xE9ricos v\xE1lidos.";
+      return "Preencha todos os campos com valores v\xE1lidos.";
     }
     if (altura < 0.5 || altura > 2.5) {
       return "Informe uma altura entre 0,50 m e 2,50 m.";
@@ -78,6 +78,15 @@
     if (!["masculino", "feminino"].includes(genero)) {
       return "Selecione um g\xEAnero v\xE1lido.";
     }
+    if (![
+      "sedentario",
+      "levemente-ativo",
+      "moderadamente-ativo",
+      "muito-ativo",
+      "extremamente-ativo"
+    ].includes(atividade)) {
+      return "Selecione um n\xEDvel de atividade v\xE1lido.";
+    }
     return null;
   }
   function calcularMetabolismoBasal(peso, altura, idade, genero) {
@@ -86,6 +95,22 @@
       return 10 * peso + 6.25 * alturaCm - 5 * idade + 5;
     } else {
       return 10 * peso + 6.25 * alturaCm - 5 * idade - 161;
+    }
+  }
+  function obterMultiplicadorAtividade(atividade) {
+    switch (atividade) {
+      case "sedentario":
+        return { multiplicador: 1.2, descricao: "Sedent\xE1rio" };
+      case "levemente-ativo":
+        return { multiplicador: 1.375, descricao: "Levemente ativo" };
+      case "moderadamente-ativo":
+        return { multiplicador: 1.55, descricao: "Moderadamente ativo" };
+      case "muito-ativo":
+        return { multiplicador: 1.725, descricao: "Muito ativo" };
+      case "extremamente-ativo":
+        return { multiplicador: 1.9, descricao: "Extremamente ativo" };
+      default:
+        return { multiplicador: 1.2, descricao: "Sedent\xE1rio" };
     }
   }
   function classificarMetabolismo(tmb) {
@@ -99,12 +124,17 @@
       return "Metabolismo muito acelerado";
     }
   }
-  function calcularResultadoMetabolismo(peso, altura, idade, genero) {
+  function calcularResultadoMetabolismo(peso, altura, idade, genero, atividade) {
     const tmb = calcularMetabolismoBasal(peso, altura, idade, genero);
+    const atividadeInfo = obterMultiplicadorAtividade(atividade);
+    const tdee = tmb * atividadeInfo.multiplicador;
     return {
       tmb: Math.round(tmb),
       genero,
-      classificacao: classificarMetabolismo(tmb)
+      classificacao: classificarMetabolismo(tmb),
+      atividade: atividadeInfo.descricao,
+      multiplicador: atividadeInfo.multiplicador,
+      tdee: Math.round(tdee)
     };
   }
 
@@ -125,11 +155,17 @@
   var generoMetabolismo = document.querySelector(
     "#genero-metabolismo"
   );
+  var atividadeMetabolismo = document.querySelector(
+    "#atividade-metabolismo"
+  );
   var valoresMetabolismo = document.querySelector(
     "#valoresMetabolismo"
   );
   var resultadoMetabolismo = document.querySelector(
     "#resultadoMetabolismo"
+  );
+  var resultadoTotalMetabolismo = document.querySelector(
+    "#resultadoTotalMetabolismo"
   );
   var avisoMetabolismo = document.querySelector("#avisoMetabolismo");
   var saidaMetabolismo = document.querySelector("#saida-metabolismo");
@@ -171,13 +207,15 @@
       peso: parseFloat(pesoMetabolismo.value.replace(",", ".")),
       altura: parseFloat(alturaMetabolismo.value.replace(",", ".")),
       idade: parseFloat(idadeMetabolismo.value),
-      genero: generoMetabolismo.value
+      genero: generoMetabolismo.value,
+      atividade: atividadeMetabolismo.value
     };
   }
   function mostrarResultadoMetabolismo(peso, altura, idade, genero, resultado) {
     valoresMetabolismo.textContent = `${peso} kg \xB7 ${altura.toFixed(2)} m \xB7 ${idade} anos \xB7 ${genero === "masculino" ? "\u2642" : "\u2640"}`;
-    resultadoMetabolismo.textContent = `${resultado.tmb} kcal/dia \u2014 ${resultado.classificacao}`;
-    avisoMetabolismo.textContent = "A Taxa Metab\xF3lica Basal (TMB) \xE9 a quantidade de calorias que seu corpo queima em repouso.";
+    resultadoMetabolismo.textContent = `TMB ${resultado.tmb} kcal/dia \u2014 ${resultado.classificacao}`;
+    resultadoTotalMetabolismo.textContent = `TDEE ${resultado.tdee} kcal/dia (${resultado.atividade}, x${resultado.multiplicador})`;
+    avisoMetabolismo.textContent = "A Taxa Metab\xF3lica Basal (TMB) \xE9 o gasto de calorias em repouso e o TDEE considera seu n\xEDvel de atividade.";
     saidaMetabolismo.classList.remove("hidden");
   }
   function exibirErroMetabolismo(mensagem) {
@@ -188,8 +226,14 @@
   }
   metabolismoForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const { peso, altura, idade, genero } = obterValoresMetabolismo();
-    const erro = validarMetabolismo(peso, altura, idade, genero);
+    const { peso, altura, idade, genero, atividade } = obterValoresMetabolismo();
+    const erro = validarMetabolismo(
+      peso,
+      altura,
+      idade,
+      genero,
+      atividade
+    );
     if (erro) {
       exibirErroMetabolismo(erro);
       return;
@@ -198,7 +242,8 @@
       peso,
       altura,
       idade,
-      genero
+      genero,
+      atividade
     );
     mostrarResultadoMetabolismo(peso, altura, idade, genero, resultado);
   });
