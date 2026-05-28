@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
+    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=browser",
+    "watch": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=browser --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "Calculadora de IMC com interface acessível e validação de entradas.",
   "devDependencies": {
+    "esbuild": "^0.28.0",
     "typescript": "^5.7.2"
   }
 }

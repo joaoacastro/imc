@@ -31,6 +31,55 @@ main.card {
   width: min(420px, 100%);
 }
 
+.abas {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.aba-btn {
+  flex: 1;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  color: #d0d7ee;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+
+.aba-btn:hover {
+  color: #f5f7ff;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.aba-btn.aba-ativo {
+  color: #5dd7ff;
+  border-bottom-color: #5dd7ff;
+}
+
+.aba-conteudo {
+  display: none;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.aba-conteudo.aba-ativo {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .entrada,
 .saida {
   margin-bottom: 18px;
@@ -79,7 +128,25 @@ main.card {
   font-size: 1rem;
 }
 
-.containerEntrada input:focus {
+.containerEntrada select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f7ff;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.containerEntrada select option {
+  background: #202a42;
+  color: #f5f7ff;
+}
+
+.containerEntrada input:focus,
+.containerEntrada select:focus {
   outline: none;
   border-color: #8ac7ff;
   box-shadow: 0 0 0 4px rgba(138, 199, 255, 0.18);

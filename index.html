@@ -22,56 +22,142 @@
   </head>
   <body>
     <main class="card">
-      <section class="entrada" id="entrada">
-        <header class="entrada-header">
-          <h1>Calculadora de IMC</h1>
-          <p>
-            Informe sua altura e peso para ver sua faixa de índice de massa
-            corporal.
-          </p>
-        </header>
+      <nav class="abas">
+        <button type="button" class="aba-btn aba-ativo" data-aba="imc">
+          IMC
+        </button>
+        <button type="button" class="aba-btn" data-aba="metabolismo">
+          Metabolismo Basal
+        </button>
+      </nav>
 
-        <form id="imcForm" novalidate>
-          <div class="containerEntrada">
-            <label for="altura">Altura (m)</label>
-            <input
-              type="number"
-              id="altura"
-              class="inputAltura"
-              placeholder="1.80"
-              min="0.50"
-              max="2.50"
-              step="0.01"
-              required
-            />
+      <!-- ABAS IMC -->
+      <div class="aba-conteudo aba-ativo" id="aba-imc">
+        <section class="entrada" id="entrada">
+          <header class="entrada-header">
+            <h1>Calculadora de IMC</h1>
+            <p>
+              Informe sua altura e peso para ver sua faixa de índice de massa
+              corporal.
+            </p>
+          </header>
 
-            <label for="peso">Peso (kg)</label>
-            <input
-              type="number"
-              id="peso"
-              class="inputPeso"
-              placeholder="90"
-              min="10"
-              max="300"
-              step="0.1"
-              required
-            />
-          </div>
+          <form id="imcForm" novalidate>
+            <div class="containerEntrada">
+              <label for="altura">Altura (m)</label>
+              <input
+                type="number"
+                id="altura"
+                class="inputAltura"
+                placeholder="1.80"
+                min="0.50"
+                max="2.50"
+                step="0.01"
+                required
+              />
 
-          <div class="acoes">
-            <button type="submit" id="botaoCalcular">Calcular IMC</button>
-          </div>
-        </form>
-      </section>
+              <label for="peso">Peso (kg)</label>
+              <input
+                type="number"
+                id="peso"
+                class="inputPeso"
+                placeholder="90"
+                min="10"
+                max="300"
+                step="0.1"
+                required
+              />
+            </div>
 
-      <section class="saida hidden" id="saida" aria-live="polite">
-        <div id="valoresEntrada" class="resultado__texto"></div>
-        <div
-          id="resultadoTexto"
-          class="resultado__texto resultado__categoria"
-        ></div>
-        <div id="aviso" class="resultado__aviso"></div>
-      </section>
+            <div class="acoes">
+              <button type="submit" id="botaoCalcular">Calcular IMC</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="saida hidden" id="saida" aria-live="polite">
+          <div id="valoresEntrada" class="resultado__texto"></div>
+          <div
+            id="resultadoTexto"
+            class="resultado__texto resultado__categoria"
+          ></div>
+          <div id="aviso" class="resultado__aviso"></div>
+        </section>
+      </div>
+
+      <!-- ABAS METABOLISMO BASAL -->
+      <div class="aba-conteudo" id="aba-metabolismo">
+        <section class="entrada" id="entrada-metabolismo">
+          <header class="entrada-header">
+            <h1>Taxa Metabólica Basal</h1>
+            <p>
+              Calcule quantas calorias seu corpo queima em repouso durante 24h.
+            </p>
+          </header>
+
+          <form id="metabolismoForm" novalidate>
+            <div class="containerEntrada">
+              <label for="peso-metabolismo">Peso (kg)</label>
+              <input
+                type="number"
+                id="peso-metabolismo"
+                class="inputPeso"
+                placeholder="90"
+                min="10"
+                max="300"
+                step="0.1"
+                required
+              />
+
+              <label for="altura-metabolismo">Altura (m)</label>
+              <input
+                type="number"
+                id="altura-metabolismo"
+                class="inputAltura"
+                placeholder="1.80"
+                min="0.50"
+                max="2.50"
+                step="0.01"
+                required
+              />
+
+              <label for="idade-metabolismo">Idade (anos)</label>
+              <input
+                type="number"
+                id="idade-metabolismo"
+                class="inputIdade"
+                placeholder="30"
+                min="10"
+                max="120"
+                step="1"
+                required
+              />
+
+              <label for="genero-metabolismo">Gênero</label>
+              <select id="genero-metabolismo" required>
+                <option value="">Selecione...</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+              </select>
+            </div>
+
+            <div class="acoes">
+              <button type="submit" id="botaoCalcularMetabolismo">
+                Calcular TMB
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section class="saida hidden" id="saida-metabolismo" aria-live="polite">
+          <div id="valoresMetabolismo" class="resultado__texto"></div>
+          <div
+            id="resultadoMetabolismo"
+            class="resultado__texto resultado__categoria"
+          ></div>
+          <div id="avisoMetabolismo" class="resultado__aviso"></div>
+        </section>
+      </div>
     </main>
 
     <footer class="rodape">
